@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        let userId;
+
+        document.addEventListener("DOMContentLoaded", async () => {
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    // Убедись, что userId получен корректно
+    userId = tg.initDataUnsafe?.user?.id;
+
+    if (!userId) {
+        alert("Ошибка: не удалось получить user_id.");
+        return;
+    }
+
+    updateClicks();
+});
+
+
+        async function updateClicks() {
+            let response = await fetch(`/get_clicks/${userId}`);
+            let data = await response.json();
+            document.getElementById("click-count").innerText = data.clicks;
+        }
+
+        async function clickButton() {
+            let response = await fetch(`/click/${userId}`);
+            let data = await response.json();
+            document.getElementById("click-count").innerText = data.clicks;
+        }
+    </script>
+</head>
+<body>
+    <h1>Кликов: <span id="click-count">0</span></h1>
+    <button onclick="clickButton()">Клик!</button>
+</body>
+</html>
