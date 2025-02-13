@@ -19,7 +19,7 @@ router = Router()
 async def start(message: Message):
     # Создаём клавиатуру с кнопкой для открытия кликера
     keyboard = ReplyKeyboardMarkup(
-        keyboard=[[KeyboardButton(text="Открыть кликер", web_app=WebAppInfo(url="https://your-server.com"))]],
+        keyboard=[[KeyboardButton(text="Открыть кликер", web_app=WebAppInfo(url="https://enf0rs3r.github.io/index/"))]],
         resize_keyboard=True
     )
     await message.answer("Нажми на кнопку, чтобы открыть кликер!", reply_markup=keyboard)
